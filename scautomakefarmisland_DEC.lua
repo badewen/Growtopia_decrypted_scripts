@@ -1,3 +1,4 @@
+key = "YASUGAMI"
 if key == "YASUGAMI" then
   itemID = "7520"
   delayp = 100
