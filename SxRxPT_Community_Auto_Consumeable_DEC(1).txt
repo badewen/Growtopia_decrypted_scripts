@@ -1,0 +1,117 @@
+if key == "YASUGAMI" then
+  print("\n\n\226\150\172\226\150\172\226\150\172\226\150\172\226\150\172\226\150\172\226\150\172\240\159\152\129\226\150\172\226\150\172\226\150\172\226\150\172\226\150\172\226\150\172\226\150\172 \n\t\t\tTrying to Decrypt? \n\226\150\172\226\150\172\226\150\172\226\150\172\226\150\172\226\150\172\226\150\172\226\150\172\226\150\172\226\150\172\226\150\172\226\150\172\226\150\172\226\150\172\226\150\172\226\150\172\n\n ['Tele: t.me/YasugamiSC'] \n ['Tele: t.me/Yasugami'] \n ['Obfuscator Powered by Yasugami]\n\n")
+  local finddialog = true
+  systemlog = "`7[`#SxRxPT`7]"
+  function ontext(str)
+    d = {}
+    d.v0 = "OnTextOverlay"
+    d.v1 = str
+    SendVariant(d)
+  end
+  function log(str)
+    LogToConsole(systemlog .. "`7" .. str)
+  end
+  function consum(str)
+    pkt = {}
+    pkt.type = 3
+    pkt.value = str
+    pkt.flags = 8390688
+    pkt.px = GetLocal().posX // 32
+    pkt.py = GetLocal().posY // 32
+    pkt.x = GetLocal().posX
+    pkt.y = GetLocal().posY
+    SendPacketRaw(false, pkt)
+  end
+  function find(str)
+    SendPacket(2, [[
+action|dialog_return
+dialog_name|item_search
+]] .. str .. "|1")
+  end
+  function pkt(type, str)
+    if str:find("/discord") then
+      dsc = [[
+
+add_label_with_icon|big|`0SxRxPT `7Community````|left|6292|
+add_spacer|small||
+add_textbox| We welcome you to join official SxRxPT Discord server, click the button below:|left|
+add_url_button|sxrxpt|`wSxRxPT Community `eDiscord|noflags|https://dsc.gg/sxrxpt|would you like to join SxRxPT Community?|0|0|
+add_url_button|sxrxpt|`wSxRxPT Community `3Telegram|noflags|https://t.me/gtpshelper|would you like to join SxRxPT Telegram?|0|0|
+add_spacer|small||
+end_dialog|popup|Thanks for the info!||
+]]
+      sxrp = {}
+      sxrp.v0 = "OnDialogRequest"
+      sxrp.v1 = dsc
+      SendVariant(sxrp)
+      return true
+    end
+    return false
+  end
+  function var(var)
+    if var.v1 == "OnConsoleMessage" and var.v2:find("Your stomach's rumbling.") then
+      consum(4604)
+      log("Arroz Effect Gone!.|Auto Eat again cause u enable auto menu.")
+      return true
+    end
+    if var.v1 == "OnConsoleMessage" and var.v2:find("Your luck has worn off.") then
+      consum(528)
+      log("Clover Effect Gone!.|Auto Eat again cause u enable auto menu.")
+      return true
+    end
+    if var.v1 == "OnConsoleMessage" and var.v2:find("Your stomach is rumbling.") then
+      consum(1474)
+      log("Egg Benedict Effect Gone!.|Auto Eat again cause u enable auto menu.")
+      return true
+    end
+    if var.v1 == "OnConsoleMessage" then
+      log(var.v2)
+      return true
+    end
+    if var.v1 == "OnDialogRequest" and true == finddialog and var.v2:find("Item Finder") then
+      LogToConsole("")
+      return true
+    end
+    return false
+  end
+  AddHook(var, "OnVariant")
+  log("Script `4Auto Consumable `#Started...")
+  AddHook(pkt, "OnSendPacket")
+  ns = {}
+  ns.v0 = "OnTalkBubble"
+  ns.v1 = GetLocal().netID
+  ns.v2 = [[
+Join our community `4/discord
+    Auto Consumable Loaded...
+    --]]
+  SendVariant(ns)
+  Sleep(3000)
+  find(4604)
+  log("Succes Find Arroz")
+  ontext("Succes Find Arroz")
+  Sleep(2000)
+  consum(4604)
+  log("Succes Eat Arroz")
+  ontext("Succes Eat Arroz")
+  Sleep(3000)
+  find(528)
+  log("Succes Find Clover")
+  ontext("Succes Find Clover")
+  Sleep(2000)
+  consum(528)
+  log("Succes Eat Clover")
+  ontext("Succes Eat Clover")
+  Sleep(3000)
+  find(1474)
+  log("Succes Find Egg Benedict")
+  ontext("Succes Find Egg Benedict")
+  Sleep(2000)
+  consum(1474)
+  log("Succes Eat Egg Benedict")
+  ontext("Succes Eat Egg Benedict")
+  Sleep(1000)
+  log("Auto Consumable Started")
+  Sleep(1000)
+  finddialog = false
+else
+end
